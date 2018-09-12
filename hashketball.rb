@@ -154,7 +154,7 @@ end                                                                             
 
 def winning_team
   sum_points = ->(team) do
-    team[:players].values.collect {|x| x[:points]}.sum
+    team[:players].values.collect {|x| x[:points]}.reduce(:+)
   end
   game_hash.values.max_by(&sum_points)[:team_name]
 end                                                     # => :winning_team
