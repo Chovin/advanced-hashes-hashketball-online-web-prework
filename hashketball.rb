@@ -164,7 +164,6 @@ def player_with_longest_name
   players.keys.max_by(&:size)                                                         # => "Brendan Haywood"
 end                                                                                   # => :player_with_longest_name
 
-player_with_longest_name     # => "Brendan Haywood"
 def long_name_steals_a_ton?
 
 end  # => :long_name_steals_a_ton?
