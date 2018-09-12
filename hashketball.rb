@@ -156,11 +156,12 @@ def winning_team
   sum_points = ->(team) do
     team[:players].values.collect {|x| x[:points]}.sum                                  # => 85, 96, 85, 85, 96
   end                                                                                   # => #<Proc:0x00007f84bd809e60@hashketball.rb:156 (lambda)>                                                    # => [96, 85]
-  game_hash.values.max{ |a, b| sum_points.call(a) <=> sum_points.call(b) }[:team_name]  # => "Brooklyn Nets"
+  game_hash.values.max_by{&sum_points}[:team_name]  # => "Brooklyn Nets"
 end                                                                                     # => :winning_team
 
+winning_team
 def player_with_longest_name
-
+  game_hash.values.collect {|team| team[:players]}.flatten.reduce(&:merge)
 end  # => :player_with_longest_name
 
 def long_name_steals_a_ton?
