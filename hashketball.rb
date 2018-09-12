@@ -167,5 +167,4 @@ end
 def long_name_steals_a_ton?
   players = game_hash.values.collect {|team| team[:players]}.flatten.reduce(&:merge)
   players.max_by {|n, s| s[:steals]}[0] == player_with_longest_name
-  
 end
