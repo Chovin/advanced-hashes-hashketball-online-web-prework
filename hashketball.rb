@@ -153,13 +153,12 @@ def most_points_scored
 end                                                                                   # => :most_points_scored
 
 def winning_team
-  sum_points = ->(team) {
-    team[:players].values
-      .collect{|x| x[:points]}
-  }                                 # => #<Proc:0x00007f813780ee80@hashketball.rb:156 (lambda)>
-  sum_points.call game_hash[:away]  # => [{:number=>4, :shoe=>18, :points=>10, :rebounds=>1, :assists=>1, :steals=>2, :blocks=>7, :slam_dunks=>2}, {:number=>0, :shoe=>16, :points=>12, :rebounds=>4, :assists=>7, :steals=>7, :blocks=>15, :slam_dunks=>10}, {:number=>2, :shoe=>14, :points=>24, :rebounds=>12, :assists=>12, :steals=>4, :blocks=>5, :slam_dunks=>5}, {:number=>8, :shoe=>15, :points=>33, :rebounds=>3, :assists=>2, :steals=>1, :blocks=>1, :slam_dunks=>0}, {:number=>33, :shoe=>15, :points=>6, :rebounds=>12, :assists=>12, :steals=>22, :blocks=>5, :slam_dunks=>12}]
-  game_hash.values.max { |a, b|  }  # ~> ArgumentError: comparison of Hash with Hash failed
-end                                 # => :winning_team
+  sum_points = ->(team) do
+    team[:players].values.collect {|x| x[:points]}.sum  # => 85
+  end                                                   # => #<Proc:0x00007fa4bb87ee18@hashketball.rb:156 (lambda)>
+  sum_points.call game_hash[:away]                      # => 85
+  game_hash.values.max(sum_points)                      # ~> ArgumentError: comparison of Hash with Hash failed
+end                                                     # => :winning_team
 
 winning_team
 
